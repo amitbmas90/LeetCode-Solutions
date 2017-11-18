@@ -5,6 +5,7 @@ def findFinalIndex(nums, index, K):
     type K: int
     """
     #observation: there exists one and only one cycle from any given index
+    if index < 0 or index >= len(nums): return -1
     seen = set()
     cycle = []
     pivot = None
