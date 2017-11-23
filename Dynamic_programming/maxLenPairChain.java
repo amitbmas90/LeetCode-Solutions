@@ -7,7 +7,7 @@ class Solution {
         Arrays.fill(dp, 1); 
         for (int i = 1; i < pairs.length; i++){
             for (int j = 0; j < i; j++){
-                dp[i] = pairs[i][0] > pairs[j][1] ? dp[j] + 1 : dp[j]
+                dp[i] = Math.max(dp[i], pairs[i][0] > pairs[j][1] ? dp[j] + 1 : dp[j])
             }
         }
         
