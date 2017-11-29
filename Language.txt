@@ -1,0 +1,8 @@
+Java how to create comparator efficiently.
+For instance, Interval objects have start attributes.
+
+Collections.sort(intervals, new Comparator<Interval>(){
+            public int compare(Interval a, Interval b){
+                return a.start - b.start;
+            }
+        });
