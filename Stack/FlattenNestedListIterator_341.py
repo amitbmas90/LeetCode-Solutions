@@ -43,7 +43,6 @@ class NestedIterator(object):
                 self.stack.append(self.curIter)
                 self.curIter = iter(self.curNestedInt.getList())
                 self.curNestedInt = next(self.curIter)
-        print (self.curNestedInt.getInteger())
         return self.curNestedInt.getInteger()
 
     def hasNext(self):
