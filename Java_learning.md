@@ -1,4 +1,4 @@
-LinkedList < T > Methods
+LinkedList &#60;T&#62; Methods
 * void add(index, object): Insert object at the index.
 * boolean add(object): add object to the end of list
 * void addFirst(object): Add object to the beginning of list
@@ -6,7 +6,7 @@ LinkedList < T > Methods
 * int size(): return the number of objects in list
 
 
-Stack < T > Methods
+Stack &#60;T&#62; Methods
 * void push(object): push object to the stack
 * object pop(): remove object at the top of stack and return it.
 * object peek(): return object at the top of stack without removing it.
