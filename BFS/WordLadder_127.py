@@ -7,20 +7,24 @@ class Solution:
         :type wordList: List[str]
         :rtype: int
         """
-        visited = {word: False for word in wordList if word != beginWord}
+        visiting = {word: False for word in wordList}
+        visited = set()
+        words = set(wordList)
         lowercaseletters = set(string.ascii_lowercase)
+
         q = PriorityQueue();
         q.put((1, beginWord))
+
         while not q.empty():
             d, word = q.get()
-            if word != beginWord and visited[word]: continue
+            visited.add(word)
             if word == endWord:
                 return d
-            visited[word] = True
             for i in range(len(word)):
                 for lcl in lowercaseletters:
                     newWord = word[:i] + lcl + word[i+1:]
-                    if newWord in visited and not visited[newWord]:
-                        q.put((d+1, newWord))
+                    if newWord not in visited:
+                        if newWord in words and not visiting[newWord]:
+                            q.put((d + 1, newWord))
+                            visiting[newWord] = True
         return 0
-                    
