@@ -1,5 +1,5 @@
 # LeetCode Problems Solutions
-  * Solutions to selected problems from LeetCode.com. File names is made of problem name + problem index.
+  * Solutions to selected problems from LeetCode.com. File names are made of problem name + problem index.
   * Implementation in Java or Python.
   * Covers major data structures and algorithm design techiniques.
     * Arrays, Stacks and Queues, Trees and Graphs
