@@ -23,8 +23,7 @@ class Solution:
             for i in range(len(word)):
                 for lcl in lowercaseletters:
                     newWord = word[:i] + lcl + word[i+1:]
-                    if newWord not in visited:
-                        if newWord in words and not visiting[newWord]:
-                            q.put((d + 1, newWord))
-                            visiting[newWord] = True
+                    if newWord in words and newWord not in visited and not visiting[newWord]:
+                        q.put((d + 1, newWord))
+                        visiting[newWord] = True
         return 0
