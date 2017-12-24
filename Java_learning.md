@@ -1,8 +1,12 @@
 LinkedList &#60;T&#62; Methods
+
 * void add(index, object): Insert object at the index.
 * boolean add(object): add object to the end of list
 * void addFirst(object): Add object to the beginning of list
+
 * object remove(index): remove object at index and return the reference.
+* object removeFirst(): remove and return the first object in the list
+
 * int size(): return the number of objects in list
 
 
@@ -24,5 +28,3 @@ For instance, Interval objects have start attributes.
 
 2) Using Java 8 Lambda:
    intervals.sort((Interval x, Interval y) -> x.start - y.start);
-
-
