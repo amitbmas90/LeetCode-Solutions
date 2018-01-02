@@ -38,4 +38,12 @@ class Solution {
         nums[x] = nums[y];
         nums[y] = temp;
     }
+    
+    public void randomization(int[] nums){
+        Random rand = new Random();
+        for (int i = 0; i < nums.length; i++){
+            int temp = rand.nextInt(i+1);
+            swap(nums, i, temp);
+        }
+    }
 }
