@@ -1,13 +1,19 @@
 # search(word) can search a literal word or a regular expression string containing only letters a-z or '.'. 
 # A '.' means it can represent any one letter.
 # Idea: Use trie. If the current character is '.', need to search the whole dictionary.
+class Node:
+    def __init__(self, key = None, data = None):
+        self.key = key
+        self.children = dict()
+        self.data = data
+        
 class WordDictionary:
 
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        self.trie = {}
+        self.root = Node()
 
     def addWord(self, word):
         """
@@ -15,14 +21,13 @@ class WordDictionary:
         :type word: str
         :rtype: void
         """
-        d = self.trie
-        for w in word:
-            if w in d:
-                d = d[w]
-            else:
-                d[w] = {}
-                d = d[w]
-        d['*'] = {}
+        if word == "": return 
+        cur = self.root
+        for l in word:
+            if l not in cur.children:
+                cur.children[l] = Node(key = l)
+            cur = cur.children[l]
+        cur.data = word
         
 
     def search(self, word):
@@ -31,17 +36,16 @@ class WordDictionary:
         :type word: str
         :rtype: bool
         """
-        def dfs(word, d):
-            if len(word) == 0:
-                if '*' in d: return True
-                else: return False
-            if word[0] == '.':
-                for k in d:
-                    if dfs(word[1:], d[k]):
+        if word == "": return False
+        def dfs(cur, idx):
+            if idx == len(word):
+                return cur.data != None
+            if word[idx] == '.':
+                for k in cur.children:
+                    if dfs(cur.children[k], idx+1):
                         return True
                 return False
-            elif word[0] not in d:
+            elif word[idx] not in cur.children:
                 return False
-            else:
-                return dfs(word[1:], d[word[0]])
-        return dfs(word, self.trie)
+            return dfs(cur.children[word[idx]], idx+1)
+        return dfs(self.root, 0)
