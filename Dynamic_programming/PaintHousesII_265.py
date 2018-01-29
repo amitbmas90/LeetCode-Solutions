@@ -1,3 +1,5 @@
+# O(NK) run-time, N is number of houses, K is number of colors.
+# Space complexity: O(K)
 class Solution:
     def minCostII(self, costs):
         """
@@ -10,19 +12,14 @@ class Solution:
         K = len(costs[0])
         for i in range(1, len(costs)):
             cur = [0] * K
-            left_min = [sys.maxsize] * K
-            right_min = [sys.maxsize] * K
-            for j, cost in enumerate(prev):
-                left_min[j] = min(cost, left_min[j-1]) if j > 0 else cost   
+            left_min = [sys.maxsize] * (K+1)
+            right_min = [sys.maxsize] * (K+1)
+            for j, cost in enumerate(prev, 1):
+                left_min[j] = min(cost, left_min[j-1])
             for j in range(K-1, -1, -1):
-                right_min[j] = min(prev[j], right_min[j+1]) if j < K - 1 else prev[j]                 
+                right_min[j] = min(prev[j], right_min[j+1])               
             for j, cost in enumerate(costs[i]):
-                if j > 0 and j < K - 1:
-                    cur[j] = cost + min(left_min[j-1], right_min[j+1])
-                elif j == 0:
-                    cur[j] = cost + right_min[1]
-                else:
-                    cur[j] = cost + left_min[K-2]
+                cur[j] = cost + min(left_min[j], right_min[j+1])
             prev = cur
         
         return min(prev)
