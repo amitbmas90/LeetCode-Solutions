@@ -6,17 +6,19 @@ class Solution:
         :type s: str
         :rtype: int
         """
-        if s==None or len(s)==0: return 0
-        memo = [0] * (len(s) + 1)
-        memo[0] = 1
-        if s[0] != '0':
-            memo[1] = 1
-        for i in range(2, len(s)+1):
-            if s[i-1] != '0': 
-                memo[i] += memo[i-1]
-            if 10 <= int(s[i-2:i]) <= 26:
-                memo[i] += memo[i-2]
-        return memo[len(s)]
+        if len(s) == 0: return 0
+        prev, cur = 1, 0
+        if int(s[0]) > 0:
+            cur = 1 
+        for i in range(1, len(s)):
+            temp = 0
+            if int(s[i]) > 0:
+                temp += cur
+            if 10 <= int(s[i-1:i+1]) <= 26:
+                temp += prev
+            prev = cur
+            cur = temp
+        return cur
 
     
     # Top-down approach
