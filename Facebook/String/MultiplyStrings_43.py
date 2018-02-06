@@ -1,3 +1,22 @@
+# Solution without extra space, and without reverse. Key is multiply from high digits to lower digits
+class Solution(object):
+    def multiply(self, num1, num2):
+        """
+        :type num1: str
+        :type num2: str
+        :rtype: str
+        """
+        cur = 0
+        for a in num1:
+            cur *= 10
+            temp = 0
+            for b in num2:
+                temp *= 10
+                temp += int(a) * int(b)
+            cur += temp
+        return str(cur)
+
+
 # Inspired by beautiful solution from @YAVINCI
 class Solution:
     def multiply(self, num1, num2):
