@@ -1,28 +1,42 @@
 # Leetcode 209.
 # Given an array of n positive integers and a positive integer s, find the minimal length of a contiguous subarray of which the sum ≥ s. 
 # If there isn't one, return 0 instead.
-class Solution(object):
+
+# Sliding window, O(N) run-time
+class Solution:
     def minSubArrayLen(self, s, nums):
         """
         :type s: int
         :type nums: List[int]
         :rtype: int
         """
-        if nums == None or len(nums) == 0: return 0
-        N = len(nums)
-        
-        # accumulated sum in [0, i]
-        sums = [0] * N
-        sums[0] = nums[0]
-        res = float('inf')
-        for i in range(1,N):
-            sums[i] = sums[i-1] + nums[i]
+        res = sys.maxsize
+        l, winSum = 0, 0
+        for i, num in enumerate(nums):
+            winSum += num
+            while l <= i and winSum >= s:
+                res = min(res, i - l + 1)
+                winSum -= nums[l]
+                l += 1            
+        return res if res < sys.maxsize else 0
 
-        for i in range(N):
-            # Binary search. Searching for largest j such that sums[i] - sums[j] >= s
-            index = bisect.bisect(sums, sums[i] - s, 0, i-1)
-            if index > 0:
-                res = min(res, i-index+1)
-            elif sums[i] >= s:
-                res = min(res, i+1)
-        return 0 if res == float('inf') else res
+# O(N*LogN) solution
+from bisect import bisect_right
+class Solution:
+    def minSubArrayLen(self, s, nums):
+        """
+        :type s: int
+        :type nums: List[int]
+        :rtype: int
+        """
+        cumsums = [0] * (len(nums)+1)
+        res = sys.maxsize
+        for i, num in enumerate(nums, 1):
+            cumsums[i] = cumsums[i-1] + num
+            j = bisect_right(cumsums, cumsums[i]-s, 1, i+1)
+            if i >= j > 1:
+                res = min(res, i - (j - 1))
+            elif cumsums[i] >= s:
+                res = min(res, i)
+
+        return res if res < sys.maxsize else 0
