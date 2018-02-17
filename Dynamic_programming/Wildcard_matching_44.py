@@ -5,22 +5,18 @@ class Solution:
         :type p: str
         :rtype: bool
         """
-        from re import compile
-        t = compile('\*+')
-        p = t.sub("*", p)
-        dp = {}
+        memo = {}
         def match(i, j):
-            if (i, j) not in dp:
-                res = None
-                if i == len(s): res = p[j:] == "" or p[j:] == "*"
+            if (i, j) not in memo:
+                res = True
+                if i == len(s):
+                    if j < len(p):
+                        if p.count('*', j) != len(p) - j: res = False
                 elif j == len(p): res = i == len(s)
-                elif p[j] == "*":
-                    res = match(i+1, j) or match(i, j+1)
-                elif p[j] in {s[i], "?"}:
-                    res = match(i+1, j+1)
                 else:
-                    res = False
-                dp[i, j] = res
-            return dp[i, j]
-        
+                    if p[j] in {s[i], '?'}: res = match(i+1, j+1)
+                    elif p[j] == '*': res = match(i, j+1) or match(i+1, j)
+                    else: res = False
+                memo[i, j] = res
+            return memo[i, j]
         return match(0, 0)
