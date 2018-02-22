@@ -3,9 +3,12 @@
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
-# Clear definition of start and end.
-# start: first node before the partition need to be reversed
-# end: first node after the partition need to be reversed
+# definitions.
+# cur: current list node to visit
+# prestart: previous node of the list to reverse
+# tail: tail node of reversed list
+# temp: node next to tail
+# newhead: first node of the reversed portion.
 class Solution:
     def reverseKGroup(self, head, k):
         """
@@ -15,28 +18,27 @@ class Solution:
         """
         dummy = ListNode(0)
         dummy.next = head
-        start = dummy
+        cur = head
         count = 0
-        end = start.next
-        while end != None:
-            count = 0
-            while count < k and end != None:
-                count += 1
-                end = end.next          
-            if count == k:  # reverse start to end
-                reversedList = None
-                temp = start.next
-                while temp != end:
-                    # print (temp.val)
-                    temp2 = temp.next
-                    temp.next = reversedList
-                    reversedList = temp
-                    # print (reversedList.val)
-                    temp = temp2
-                start.next = reversedList
-                while reversedList.next:
-                    reversedList = reversedList.next
-                start = reversedList
-                reversedList.next = end
-
+        prestart = dummy
+        while cur != None:
+            count += 1
+            if count == k:
+                temp = cur.next
+                newhead = prestart.next
+                tail = newhead
+                t = newhead.next
+                newhead.next = None
+                while t != temp:
+                    t2 = t.next
+                    t.next = newhead
+                    newhead = t
+                    t = t2
+                prestart.next = newhead
+                tail.next = temp
+                count = 0
+                cur = temp
+                prestart = tail
+                continue
+            cur = cur.next
         return dummy.next
