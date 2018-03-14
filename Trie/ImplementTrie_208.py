@@ -1,7 +1,8 @@
-# Since the problem limit the characters being a-z, we can use array to store children instead of Dict to accelerate.
+# Since the problem states that input only contains lower-case letters, 
+# we can use array to store children instead of Dict or HashMap to accelerate search.
 class TrieNode:
-    def __init__(self, key, isWord = False):
-        self.key = key
+    def __init__(self, prefix = None, isWord = False):
+        self.prefix = prefix
         self.isWord = isWord
         self.children = [None] * 26
         
@@ -12,7 +13,7 @@ class Trie:
         """
         Initialize your data structure here.
         """
-        self.root = TrieNode("")
+        self.root = TrieNode(prefix = '')
 
 
     def insert(self, word):
@@ -22,10 +23,12 @@ class Trie:
         :rtype: void
         """
         cur = self.root
+        path = []
         for c in word:
-            temp = ord(c) - ord('a')
+            path.append(c)
+            temp = ord(c) - ord('a')   
             if not cur.children[temp]:
-                cur.children[temp] = TrieNode(c)
+                cur.children[temp] = TrieNode(prefix = ''.join(path))
             cur = cur.children[temp]
         cur.isWord = True
         
@@ -41,7 +44,7 @@ class Trie:
             temp = ord(c) - ord('a')
             if not start.children[temp]: return False
             start = start.children[temp]
-        return True if start.isWord else False
+        return start.isWord
     
 
     def startsWith(self, prefix):
