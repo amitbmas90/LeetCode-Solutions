@@ -1,4 +1,33 @@
-class Solution:
+from collections import Counter
+class Solution_1:
+    def lengthOfLongestSubstringKDistinct(self, s, k):
+        """
+        :type s: str
+        :type k: int
+        :rtype: int
+        """
+        if k == 0 and len(s) > 0: return 0
+        cnt = Counter()
+        n = len(s)
+        num_distinct, i = 0, 0
+        res = 0
+        for j in range(n):
+            if cnt[s[j]] > 0:
+                cnt[s[j]] += 1
+            elif num_distinct < k:
+                num_distinct += 1
+                cnt[s[j]] += 1
+            else:
+                cnt[s[j]] += 1
+                num_distinct += 1
+                while i <= j and cnt[s[i]] > 0 and num_distinct > k:
+                    cnt[s[i]] -= 1
+                    if cnt[s[i]] == 0:
+                        num_distinct -= 1
+                    i += 1
+        return res
+
+class Solution_2:
     def lengthOfLongestSubstringKDistinct(self, s, k):
         """
         :type s: str
@@ -7,7 +36,6 @@ class Solution:
         """
         from collections import Counter
         def findLongest(start):
-            # print ('called on %d !!' % start)
             cnt = Counter()
             i = start
             l = 0
