@@ -14,16 +14,15 @@ class Solution:
         """
         if root == None: return True
         stack = []
-        prev = None
-        node = root
+        prev, node = None, root
         while stack or node:
             if node:
                 stack.append(node)
                 node = node.left
             else:
                 node = stack.pop()
-                if prev != None and node.val <= prev:
+                if prev and prev.val >= node.val:
                     return False
-                prev = node.val
+                prev = node
                 node = node.right
         return True
