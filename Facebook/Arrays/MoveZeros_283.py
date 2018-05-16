@@ -9,6 +9,4 @@ class Solution:
         for j, num in enumerate(nums):
             if num != 0:
                 i += 1
-                nums[i] = num
-                if j != i:
-                    nums[j] = 0
+                nums[i], nums[j] = nums[j], nums[i]
