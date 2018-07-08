@@ -7,7 +7,6 @@ class Solution:
         """
         arrays=[[] for _ in range(numRows)]
         middle = max(numRows-2, 0)
-        position = 0
         for idx, char in enumerate(s):
             position = idx % (numRows + middle)
             if position < numRows:
