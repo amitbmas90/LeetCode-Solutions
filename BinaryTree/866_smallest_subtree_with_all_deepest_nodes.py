@@ -8,16 +8,16 @@
 class Solution:
     def subtreeWithAllDeepest(self, root):
         """
+        Annotate height. Search for node with equal height subtrees
+        O(N) run-time and O(N) space-complexity
         :type root: TreeNode
         :rtype: TreeNode
         """
-
         def find_height(node):
             if node is None:
                 return 0
-            height = max(find_height(node.left), find_height(node.right)) + 1
-            node.height = height
-            return height
+            node.height = max(find_height(node.left), find_height(node.right)) + 1
+            return node.height
 
         def find_node_equal_height(node):
             if node.left == node.right == None:
