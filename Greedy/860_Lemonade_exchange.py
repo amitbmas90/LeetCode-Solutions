@@ -1,6 +1,7 @@
 class Solution:
     def lemonadeChange(self, bills):
         """
+        Greedy algorithm. All you can try is provide change to current customer.
         :type bills: List[int]
         :rtype: bool
         """

@@ -5,6 +5,8 @@
 #         self.end = e
 # Time-complexity O(IlogI), where I is total number of intervals from all employees.
 # Space-complexity O(I).
+
+
 class Solution:
     def employeeFreeTime(self, schedule):
         """

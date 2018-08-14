@@ -1,4 +1,4 @@
-# This greedy solution needs mathematical proof.
+# This mathematical solution needs proof.
 # We need to get two stats: F, maximum count of any task. M, number of tasks with this count.
 # So the number of tasks with this count <= N / F, where N is the total number of tasks. If cooldown n >= N / F, then n >= M.
 # This implies that all the most frequent tasks can be inserted in the group with size (n+1).
