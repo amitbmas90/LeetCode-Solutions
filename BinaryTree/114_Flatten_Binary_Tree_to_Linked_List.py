@@ -1,4 +1,3 @@
-# beat 100% Py3
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -12,14 +11,16 @@ class Solution:
         :type root: TreeNode
         :rtype: void Do not return anything, modify root in-place instead.
         """
-        # preorder traversal
-        if root == None: return
+        if root is None: return
         stack = [root]
+        prev = None
         while stack:
-            cur = stack.pop()
-            if cur.right:
-                stack.append(cur.right)
-            if cur.left:
-                stack.append(cur.left)
-            cur.left = None
-            cur.right = stack[-1] if len(stack) > 0 else None
+            node = stack.pop()
+            if node.right:
+                stack.append(node.right)
+            if prev is not None:
+                prev.right = node
+                prev.left = None
+            prev = node
+            if node.left:
+                stack.append(node.left)
