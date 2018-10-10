@@ -45,4 +45,3 @@ class Solution:
         for i, g in enumerate(groups):
             res[find(g)].append(rev_m[i])
         return [[email_to_name[rev_m[g]]] + sorted(res[g]) for g in res]
-        
