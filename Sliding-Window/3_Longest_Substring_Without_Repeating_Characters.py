@@ -4,15 +4,16 @@ class Solution:
         :type s: str
         :rtype: int
         """
-        left = 0
+        char_set = set()
         res = 0
-        counter = collections.Counter()
-        for right, letter in enumerate(s):
-            if counter[letter] == 1:
-                while left <= right and s[left] != letter:
-                    counter[s[left]] -= 1
+        left = 0
+        for right, c in enumerate(s):
+            if c in char_set:
+                while s[left] != c:
+                    char_set.remove(s[left])
                     left += 1
                 left += 1
-            counter[letter] = 1
-            res = max(res, right - left + 1)
+            else:
+                char_set.add(c)
+                res = max(res, len(char_set))
         return res
